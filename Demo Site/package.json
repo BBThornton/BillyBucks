@@ -1,0 +1,20 @@
+{
+  "name": "demosite",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  },
+  "dependencies": {
+    "browserify": "^17.0.0",
+    "express": "^4.18.1",
+    "turtlecoin-crypto": "^6.0.4"
+  }
+}
