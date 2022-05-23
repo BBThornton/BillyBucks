@@ -23,3 +23,22 @@ The source code for this project is seperated between multiple repositories.
 The BillyBucks blockchain is the repository which contains a fork of the TurtleCoin code and also contains the information to make further forks of the code. Including the command necessary to deploy the blockchain.
 
 **Link:** [https://github.com/BBThornton/BillyBucksBlockchain](https://github.com/BBThornton/BillyBucksBlockchain)
+
+### BillyBucks Balanced Mining Pool
+This repository contains the code responsible for the balanced mining pool and is used with the BillyBucks blockchain to allow miners to join the mining process in the permissioned blockchain.
+
+**Link:** [https://github.com/BBThornton/BillyBucksMiningPool](https://github.com/BBThornton/BillyBucksMiningPool)
+
+### BillyBucks JavaScript Web Miner and Manager
+This repository contains the alter code of a Javascript based miner and the miner manager server. It has been updated to both suport the new TurtleCoin hashing algorithm (Chukwa v2) and also recognise and support the "null"/"pause" job of the BillyBucks Mining pool.
+
+**Link:** [https://github.com/BBThornton/BillyBucksWebMiner](https://github.com/BBThornton/BillyBucksWebMiner)
+
+### Demo Website
+The demo website was used during the demo video and provides a simple example on how to include the WebMining dependency into a website to join the mining network.
+The code for this is included in this repository in the WebDemo folder.
+
+### Simulation Code
+A python simulation was also created as part of the report process. This simulation was used to generate the figures used as part of the report/thesis. This code is not "beautified" and is raw, please don't judge the code too harshly.
+
+This code is included in the Simulation Folder of this repository.
