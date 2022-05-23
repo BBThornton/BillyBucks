@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+</head>
+
+<body>
+
+  <!--A TEXT FIELD-->
+  <div style="display:flex; flex-direction:column; justify-content:space-between; width:80%">
+    <label for="texta">Console Log:</label>
+    <textarea rows="4" cols="80" id="texta"></textarea> </div>
+  <div style="display:flex; flex-direction:column; justify-content:space-between; width:80%">
+  <label for="wallet_address">Mining Wallet Address</label>
+  <input id="wallet_address" value="btzzfPn3ueVKUAnyLCskmi4nKA6nrJd3qdifoFy7gh8pDZiYwH33yYkd5CodvtJszsPQWjTYkJQ1Yc4iSBZf9Q218xL6TgSL1f"> </input>
+
+  <label id="label2"for="throttle">Max CPU Utilisation %: 0</label>
+    <input id="throttle" type="range" min="0" max="100" value="1" onchange="updateThrottle()">
+  </div>
+
+
+    <!--A BUTTON-->
+  <div style="display:flex; flex-direction:row; justify-content:center; width:80%">
+    <button id="startb" onclick="start()">Start mining!</button>
+    <button id="stopb" onclick="stop()" disabled>Stop mining!</button>
+
+  </div>
+
+
+  <!--THE MINER SCRIPT-->
+  <script src="miner/miner.js"></script>
+
+
+  <script>
+    function updateThrottle(){
+      throttleMiner = 100-document.getElementById("throttle").value
+      document.getElementById("label2").innerHTML = "Max CPU Utilisation %: "+(100-throttleMiner).toString();
+    }
+
+    function stop(){
+      stopMining();
+      document.getElementById("startb").disabled = false; // disable button
+      document.getElementById("stopb").disabled = true; // disable button
+    }
+
+    function start() {
+
+      document.getElementById("startb").disabled = true; // disable button
+      document.getElementById("stopb").disabled = false; // disable button
+
+      /* start mining, use a local server */
+      server = "ws://172.17.135.209:8181";
+
+      startMining("billybucks",
+        document.getElementById("wallet_address").value,
+        "x",
+        );
+
+      throttleMiner = 100-document.getElementById("throttle").value
+
+      /* Alternative (see logins.json): startMiningWithId("favpool");  */
+      
+      /* keep us updated */
+
+      addText("Connecting...");
+
+      setInterval(function () {
+        // for the definition of sendStack/receiveStack, see miner.js
+        while (sendStack.length > 0) addText((sendStack.pop()));
+        while (receiveStack.length > 0) addText((receiveStack.pop()));
+        addText("calculated " + totalhashes + " hashes.");
+      }, 2000);
+
+    }
+
+    /* helper function to put text into the text field.  */
+
+    function addText(obj) {
+
+      var elem = document.getElementById("texta");
+      elem.value += "[" + new Date().toLocaleString() + "] ";
+
+      if (obj.identifier === "job")
+        elem.value += "new job: " + obj.job_id;
+      else if (obj.identifier === "solved")
+        elem.value += "solved job: " + obj.job_id;
+      else if (obj.identifier === "hashsolved")
+        elem.value += "pool accepted hash!";
+      else if (obj.identifier === "error")
+        elem.value += "error: " + obj.param;
+      else elem.value += obj;
+
+      elem.value += "\n";
+      elem.scrollTop = elem.scrollHeight;
+
+    }
+
+  </script>
+
+</body>
+
+</html>
